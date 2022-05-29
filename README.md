@@ -70,9 +70,14 @@ Goldpanning script for QBCore Framework
 **Dependencies**
 
 qb-core: https://github.com/qbcore-framework/qb-core
+
 qb-target: https://github.com/qbcore-framework/qb-target
+
 qb-shops: https://github.com/qbcore-framework/qb-shops
+
 PolyZone: https://github.com/qbcore-framework/PolyZone
+
 Progressbar: https://github.com/qbcore-framework/progressbar
+
 qb-sellitems: 
 
