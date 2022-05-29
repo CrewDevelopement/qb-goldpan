@@ -5,6 +5,17 @@ Original verison from https://github.com/ALONE-OP/qb-mine
 
 Goldpanning script for QBCore Framework
 
+# Preview
+Gathering Gravel- https://streamable.com/eisebo
+
+Washing Gravel- https://streamable.com/7uquwv
+
+Smelting- https://streamable.com/b1xrh5
+
+Selling- https://streamable.com/dij6vi
+
+# Instructions
+
 **Add to qb-shops/config.lua**
 
 *Add into Config.Products*
