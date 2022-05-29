@@ -79,5 +79,5 @@ PolyZone: https://github.com/qbcore-framework/PolyZone
 
 Progressbar: https://github.com/qbcore-framework/progressbar
 
-qb-sellitems: 
+qb-sellitems: https://github.com/RapidzModzz/qb-sellitems
 
