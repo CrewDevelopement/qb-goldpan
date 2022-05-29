@@ -78,7 +78,7 @@ Selling- https://streamable.com/dij6vi
 
 ```
 
-**Dependencies**
+# Dependencies
 
 qb-core: https://github.com/qbcore-framework/qb-core
 
