@@ -256,7 +256,7 @@ RegisterNetEvent('qb-goldpan:client:startgravel', function() -- Start mining
                                                 StopAnimTask(Ped, "amb@world_human_bum_wash@male@high@base", "startwash", 1.0)
 						ClearPedTasks(Ped)
 						DeleteObject(axe)
-						TriggerServerEvent('qb-goldpan:server:getItem', Config.MiningItems)
+						TriggerServerEvent('qb-goldpan:server:getItem', Config.GoldItems)
 					end)
 				end
 			end
