@@ -1,33 +1,46 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local Goldlist = {
-   
-    ["goldbar"]  =  500 ,
-    ["rawgold"]  =  100 ,
-    ["gravel"]  =  25 ,
-}
 
-RegisterNetEvent('qb-sellitems:server:sellgold', function()
-    local src = source
-    local price = 0
-    local Player = QBCore.Functions.GetPlayer(src)
-    
-    local xItem = Player.Functions.GetItemsByName(Goldlist)
-    if xItem ~= nil then
-        for k, v in pairs(Player.PlayerData.items) do
-            if Player.PlayerData.items[k] ~= nil then
-                if Goldlist[Player.PlayerData.items[k].name] ~= nil then
-                    price = price + (Goldlist[Player.PlayerData.items[k].name] * Player.PlayerData.items[k].amount)
-                    Player.Functions.RemoveItem(Player.PlayerData.items[k].name, Player.PlayerData.items[k].amount, k)
-
-        Player.Functions.AddMoney("cash", price, "sold-resources")
-            TriggerClientEvent('QBCore:Notify', src, "You sold your gold for $"..price)
-            TriggerEvent("qb-log:server:CreateLog", "sellgold", "resources", "blue", "**"..GetPlayerName(src) .. "** got $"..price.." for selling the resources")
-                end
+-- Events
+RegisterServerEvent('qb-goldpan:server:getItem', function(itemlist)
+    local Player = QBCore.Functions.GetPlayer(source)
+    local itemlist = itemlist
+    local removed = false
+    for k, v in pairs(itemlist) do
+        if v.threshold > math.random(0, 100) then
+            Player.Functions.AddItem(v.name, math.random(1, v.max))
+            TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items[v.name], "add")
+            if v.remove ~= nil and not removed then
+                removed = true
+                Player.Functions.RemoveItem(v.remove, 1)
+                TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items[v.remove], "remove")
             end
         end
-    else
-        TriggerClientEvent('QBCore:Notify', src, "You have no resources..")
     end
-
 end)
 
+QBCore.Functions.CreateUseableItem("bucket", function(source, item)
+	local src = source
+    TriggerClientEvent('qb-goldpan:client:startgravel', src)
+end)
+
+QBCore.Functions.CreateUseableItem("sifter", function(source, item)
+	local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    local item = Player.Functions.GetItemByName("gravel")
+    if item ~= nil then
+        TriggerClientEvent('qb-goldpan:client:startwash', src)
+    else
+        TriggerClientEvent('QBCore:Notify', src, 'You have nothing to wash.', 'error')
+    end
+end)
+
+QBCore.Functions.CreateUseableItem("mold", function(source, item)
+	local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    local item = Player.Functions.GetItemByName("rawgold")
+    if item ~= nil then
+        TriggerClientEvent('qb-goldpan:client:startsmelt', src)
+    else
+        TriggerClientEvent('QBCore:Notify', src, 'You have nothing to Melt!', 'error')
+    end
+end)
