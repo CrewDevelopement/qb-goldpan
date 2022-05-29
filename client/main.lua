@@ -125,8 +125,6 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function() -- Event when player
 	TriggerEvent('qb-goldpan:client:UpdateSmeltingZones') -- Reload smelting information
 	Wait(100)
 	CreateBlips() --Reload blips
-	Wait(100)
-	SpawnPeds() -- Shop ped at mining site
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function() -- Reset all variables
@@ -152,9 +150,7 @@ AddEventHandler('onResourceStart', function(resource) -- Event when resource is 
 		Wait(100)
 		TriggerEvent('qb-goldpan:client:UpdateSmeltingZones') -- Reload smelting information
 		Wait(100)
-		CreateBlips() --Reload blips
-		Wait(100)
-		SpawnPeds() -- Shop ped at mining site
+		CreateBlips()
     end
 end)
 
@@ -176,12 +172,10 @@ RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo) --Events when pl
 	TriggerEvent('qb-goldpan:client:UpdateSmeltingZones') -- Reload smelting information
 	Wait(100)
 	CreateBlips() --Reload blips
-	Wait(100)
-	SpawnPeds() -- Shop ped at mining site
 end)
 
 RegisterNetEvent('qb-goldpan:client:UpdateGoldZones', function() -- Update Mining Zones
-    for k, v in pairs(Config.Mining) do
+    for k, v in pairs(Config.Gold) do
         GoldLocations[k] = PolyZone:Create(v.zones, {
             name='GoldStation '..k,
             minZ = 	v.minz,
@@ -244,7 +238,7 @@ RegisterNetEvent('qb-goldpan:client:startgravel', function() -- Start mining
 		local coord = GetEntityCoords(Ped)
 		for k, v in pairs(GoldLocations) do
 			if GoldLocations[k] then
-				if MiningLocations[k]:isPointInside(coord) then
+				if GoldLocations[k]:isPointInside(coord) then
 					local model = loadModel(`prop_bucket_02a`)
 					local axe = CreateObject(model, GetEntityCoords(Ped), true, false, false)
 					AttachEntityToEntity(axe, Ped, GetPedBoneIndex(Ped, 57005), 0.09, 0.03, -0.02, -78.0, 13.0, 28.0, false, true, true, true, 0, true)
