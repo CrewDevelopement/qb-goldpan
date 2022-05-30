@@ -1,3 +1,4 @@
+![](images/download1.png)
 # qb-goldpan 
 Rework of qb-mine from https://github.com/izMystic
 
